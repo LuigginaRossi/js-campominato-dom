@@ -6,18 +6,25 @@ console.log(btnCreateGridEl);
 const gridContainerEl = document.querySelector(".grid-container");
 console.log(gridContainerEl);
 
+//arrayBombe:
+let bombs;
 
 //creo evento al click del bottone
 btnCreateGridEl.addEventListener("click", function() {
-    // //BONUS:
 
-         const selectEL = document.querySelector(".select-hardle");
-         console.log(selectEL);
-         const opzione = Math.sqrt(+selectEL.value);
-         console.log(opzione)
-         console.log(typeof(+selectEL.value))
-       
-         createGrid(opzione, gridContainerEl)
+        const selectEL = document.querySelector(".select-hardle");
+        console.log(selectEL);
+
+        const opzione = Math.sqrt(+selectEL.value);
+        console.log(opzione);
+
+        const valueSelect = +selectEL.value;
+        console.log(valueSelect);
+
+        const bombsList = createBombs(valueSelect);
+        console.log(bombsList);
+        
+        createGrid(opzione, gridContainerEl);
 
     //createGrid(10, gridContainerEl);
 } );
@@ -49,30 +56,68 @@ function createGrid (numcells, containerGrid ){
         cellEL.style.flexBasis = `calc(100% / ${numcells})`;
         // cellEL.style.border = `1px solid darkolivegreen`;
 
-
+        //aggiungo dataset alle singole celle:  mostro numero sono nell'html:
+        cellEL.dataset.myNumCell = i;
+        
+        //evento al click sulla Cella:
         cellEL.addEventListener("click", function(){
             //mostro numero all'interno della cella:
-            cellEL.innerHTML= i;
+            //cellEL.innerHTML= i;
 
-            this.classList.toggle("bg-primary");
+            //leggo numero cella:
+            const numCell = +cellEL.dataset.myNumCell;
+
+            //se il mio array contiene  il numero della cella allora
+            if ( bombs.includes(numCell)){
+                console.log("hai trovato una bomba");
+            } else{ 
+                this.classList.toggle("bg-primary");
+            }
+    
         });
 
-
-        //inserisco elemento creato nel contenitore griglia:
+         //inserisco elemento creato nel contenitore griglia:
         containerGrid.append(cellEL);
-
     }
 }
 
-//creo function per generare 16 numeri casuali: usando come numero minimo 1 e massimo il numero delle celle => select.value
+//se non funzione il selectEl.value allora salvo una variabile e la uso
+/**
+ * creo function per generare 16 numeri casuali: usando come numero minimo 1 e massimo il numero delle celle => select.value
+ * @param {number} min 
+ * @param {number} max 
+ * @returns {number}
+ */
+function createNumRandom( min, max) {
 
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
 //generro tramite function un array di bombe con 16 elementi 
 //creo una variabile let per l'array che salvo globalmente per poterlo richiamare all'esterno
 //all'interno delle function aggiungo condizione per evitare che nell'array vengano stampati due numeri uguali
 //uso .includes
 
+/**
+ * genero un array di 16 bombe corrispondenti a numeri diversi.
+ * @param {number} numcells 
+ * @returns {Array}
+ */
+function createBombs( numcells ) {
 
+    bombs=[];
+
+    while( bombs.length < 16){
+
+       //creo costante richiamando funzione genera numero random:
+        const numRandom = createNumRandom(1, numcells);
+        
+        if (!bombs.includes(numRandom)) {
+            bombs.push(numRandom)
+        } 
+    }
+    return bombs;
+}
 
 //salvo array nel evento click del bottone che genera la grigla, richiamandono con la let
 //in questo modo anche l'array verrà generato contemporaneamente.
