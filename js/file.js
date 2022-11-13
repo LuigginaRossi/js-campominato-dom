@@ -6,6 +6,8 @@ console.log(btnCreateGridEl);
 const gridContainerEl = document.querySelector(".grid-container");
 console.log(gridContainerEl);
 
+
+
 //arrayBombe:
 let bombs;
 
@@ -67,16 +69,33 @@ function createGrid (numcells, containerGrid ){
             //leggo numero cella:
             const numCell = +cellEL.dataset.myNumCell;
 
+
             //se il mio array contiene  il numero della cella allora
             if ( bombs.includes(numCell)){
                 alert("Hai trovato una bomba!");
                 this.classList.add("bg-danger");
+
+                // //creo elemento con amimazione:
+                // const bombEL = document.createElement("div");
+                //  console.log(bombEL);
+        
+                // //attribuisco clssi e proprietà:
+                // bombEL.classList.add("bomb");
+
+                // //inserisco elemento creato nel contenitore cellEL:
+                // cellEL.append(bombEL);
+
+                 this.style.backgroundImage = "url('img/1.svg')";
+                 this.style.backgroundPosition = "center";
+                this.style.backgroundRepeat ="no-repeat"
+                
                 alert("Ricarica la pagina e prova ancora!");
                 gridContainerEl.style.pointerEvents ="none";
             } else{ 
                 this.classList.toggle("bg-primary");
+
             }
-    
+ 
         });
 
          //inserisco elemento creato nel contenitore griglia:
