@@ -69,7 +69,10 @@ function createGrid (numcells, containerGrid ){
 
             //se il mio array contiene  il numero della cella allora
             if ( bombs.includes(numCell)){
-                console.log("hai trovato una bomba");
+                alert("Hai trovato una bomba!");
+                this.classList.add("bg-danger");
+                alert("Ricarica la pagina e prova ancora!");
+                gridContainerEl.style.pointerEvents ="none";
             } else{ 
                 this.classList.toggle("bg-primary");
             }
