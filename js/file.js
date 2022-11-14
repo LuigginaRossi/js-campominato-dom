@@ -85,8 +85,8 @@ function createGrid (numcells, containerGrid ){
                 // //inserisco elemento creato nel contenitore cellEL:
                 // cellEL.append(bombEL);
 
-                 this.style.backgroundImage = "url('img/1.svg')";
-                 this.style.backgroundPosition = "center";
+                this.style.backgroundImage = "url('img/1.svg')";
+                this.style.backgroundPosition = "center";
                 this.style.backgroundRepeat ="no-repeat"
                 
                 alert("Ricarica la pagina e prova ancora!");
